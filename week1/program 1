@@ -1,0 +1,26 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    string name;
+    int rollNo;
+    string branch;
+
+    cout << "Enter Student Name: ";
+    getline(cin, name);
+
+    cout << "Enter Roll Number: ";
+    cin >> rollNo;
+
+    cin.ignore();  // clear newline from buffer
+
+    cout << "Enter Branch: ";
+    getline(cin, branch);
+
+    cout << "\n--- Student Details ---\n";
+    cout << "Name      : " << name << endl;
+    cout << "Roll No   : " << rollNo << endl;
+    cout << "Branch    : " << branch << endl;
+
+    return 0;
+}

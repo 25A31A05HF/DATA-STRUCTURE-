@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+};
+
+int main() {
+
+    Node *head = NULL, *temp, *newNode;
+    int choice = 1;
+
+    // Creating linked list
+    while(choice == 1) {
+        newNode = new Node();
+
+        cout << "Enter data: ";
+        cin >> newNode->data;
+
+        newNode->next = NULL;
+
+        if(head == NULL) {
+            head = newNode;
+            temp = newNode;
+        }
+        else {
+            temp->next = newNode;
+            temp = newNode;
+        }
+
+        cout << "Create another node? (1-Yes / 0-No): ";
+        cin >> choice;
+    }
+
+    // Traversing operation
+    cout << "Linked List Elements: ";
+    temp = head;
+
+    while(temp != NULL) {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+
+    cout << "NULL";
+
+    return 0;
+}

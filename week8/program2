@@ -1,0 +1,122 @@
+#include <iostream>
+using namespace std;
+
+// Node structure to represent each element in the stack
+struct Node {
+    int data;
+    Node* next;
+};
+
+class Stack {
+private:
+    Node* top; // Points to the top node of the stack
+
+public:
+    Stack() { 
+        top = nullptr; 
+    }
+
+    // Stack is empty if top points to null
+    bool isEmpty() { 
+        return top == nullptr; 
+    }
+
+    // Linked lists grow dynamically, so they are rarely full
+    // unless the system runs completely out of heap memory
+    bool isFull() { 
+        Node* temp = new(nothrow) Node();
+        if (temp == nullptr) {
+            return true;
+        }
+        delete temp;
+        return false;
+    }
+
+    void push(int x) {
+        if (isFull()) {
+            cout << "Stack Overflow\n";
+        } else {
+            Node* newNode = new Node();
+            newNode->data = x;
+            newNode->next = top; // Link the new node to the previous top
+            top = newNode;       // Update top to point to the new node
+            cout << x << " pushed into stack\n";
+        }
+    }
+
+    void pop() {
+        if (isEmpty()) {
+            cout << "Stack Underflow\n";
+        } else {
+            Node* temp = top;      // Temporary pointer to hold current top
+            cout << top->data << " popped from stack\n";
+            top = top->next;       // Move top pointer to the next node
+            delete temp;           // Free the memory of the popped node
+        }
+    }
+
+    void peek() {
+        if (isEmpty()) {
+            cout << "Stack is empty\n";
+        } else {
+            cout << "Top element: " << top->data << endl;
+        }
+    }
+
+    void display() {
+        if (isEmpty()) {
+            cout << "Stack is empty\n";
+        } else {
+            cout << "Stack elements: ";
+            Node* current = top;
+            while (current != nullptr) {
+                cout << current->data << " ";
+                current = current->next;
+            }
+            cout << endl;
+        }
+    }
+
+    // Destructor to clean up memory when the stack object goes out of scope
+    ~Stack() {
+        while (!isEmpty()) {
+            pop();
+        }
+    }
+};
+
+int main() {
+    Stack s;
+    int choice, value;
+
+    do {
+        cout << "\n--- Stack Menu ---\n";
+        cout << "1. Push\n2. Pop\n3. Peek\n4. Display\n5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter value to push: ";
+                cin >> value;
+                s.push(value);
+                break;
+            case 2:
+                s.pop();
+                break;
+            case 3:
+                s.peek();
+                break;
+            case 4:
+                s.display();
+                break;
+            case 5:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice!\n";
+        }
+    } while (choice != 5);
+
+    return 0;
+}
